@@ -1,5 +1,5 @@
 
-let Thing = require('../Thing.js');
+import Thing from '../Thing.js';
 
 /**
  * Animal
@@ -9,4 +9,4 @@ class Animal extends Thing
 
 }
 
-module.exports = Animal;
+export default Animal;

@@ -1,12 +1,18 @@
 
+import Position from '../World/Position.js';
+
 /**
  * Thing
- *
- * @property position Position
  */
 class Thing
 {
 
+	/**
+	 * @type Position
+	 */
+	position;
+
+	//------------------------------------------------------------------------------------------------------ constructor
 	/**
 	 * @param position Position
 	 */
@@ -15,8 +21,25 @@ class Thing
 		this.position = position;
 	}
 
+	//------------------------------------------------------------------------------------------------------------- draw
 	/**
-	 * @returns string
+	 * @param paper Paper
+	 */
+	draw(paper)
+	{
+		let pen      = paper.pen;
+		let position = this.position;
+		let world    = paper.world;
+		let x = position.x - world.x - 8;
+		let y = position.y - world.y - 8;
+
+		pen.strokeStyle = 'black';
+		pen.strokeRect(x, y, 16, 16);
+	}
+
+	//--------------------------------------------------------------------------------------------------------- toString
+	/**
+	 * @return string
 	 */
 	toString()
 	{
@@ -25,4 +48,4 @@ class Thing
 
 }
 
-module.exports = Thing;
+export default Thing;

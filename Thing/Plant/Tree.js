@@ -1,5 +1,5 @@
 
-let Plant = require('./Plant.js');
+import Plant from './Plant.js';
 
 /**
  * Tree
@@ -9,4 +9,4 @@ class Tree extends Plant
 
 }
 
-module.exports = Tree;
+export default Tree;

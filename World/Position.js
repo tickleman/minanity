@@ -27,7 +27,7 @@ class Position
 	}
 
 	/**
-	 * @returns string
+	 * @return string
 	 */
 	toString()
 	{
@@ -36,4 +36,4 @@ class Position
 
 }
 
-module.exports = Position;
+export default Position;

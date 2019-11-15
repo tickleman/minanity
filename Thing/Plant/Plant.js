@@ -1,5 +1,5 @@
 
-let Thing = require('../Thing.js');
+import Thing from '../Thing.js';
 
 /**
  * Plant
@@ -9,4 +9,4 @@ class Plant extends Thing
 
 }
 
-module.exports = Plant;
+export default Plant;

@@ -1,5 +1,5 @@
 
-let Animal = require('./Animal.js');
+import Animal from './Animal.js';
 
 /**
  * Human
@@ -9,4 +9,4 @@ class Minan extends Animal
 
 }
 
-module.exports = Minan;
+export default Minan;
