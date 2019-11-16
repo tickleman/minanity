@@ -20,7 +20,7 @@ class Position
 	 * @param y integer
 	 * @param z integer
 	 */
-	constructor(x, y, z)
+	constructor(x, y, z = 0)
 	{
 		this.x = x;
 		this.y = y;
@@ -29,7 +29,7 @@ class Position
 
 	//--------------------------------------------------------------------------------------------------------- toString
 	/**
-	 * @return string
+	 * @returns string
 	 */
 	toString()
 	{

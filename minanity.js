@@ -6,7 +6,7 @@
  */
 
 let Position = require('./World/Position');
-let Minan = require('./Thing/Animal/Minan');
+let Minan = require('./Thing/Creature/Minan');
 
 let test = new Minan(new Position(0, 0, 0));
 console.log(test.toString());

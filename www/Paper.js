@@ -6,9 +6,29 @@ class Paper
 {
 
 	/**
+	 * @type number
+	 */
+	animation_request;
+
+	/**
 	 * @type HTMLCanvasElement
 	 */
-	canvas = document.getElementsByTagName('canvas')[0];
+	canvas;
+
+	/**
+	 * @type Image[]|object
+	 */
+	images = {};
+
+	/**
+	 * @type number
+	 */
+	fps;
+
+	/**
+	 * @type number
+	 */
+	frames = 0;
 
 	/**
 	 * @type number
@@ -18,11 +38,11 @@ class Paper
 	/**
 	 * @type CanvasRenderingContext2D
 	 */
-	pen = this.canvas.getContext('2d');
+	pen;
 
 	position = new class {
-		center = new Position(0, 0, 0);
-		top    = new Position(0, 0, 0);
+		center = new Position(0, 0);
+		top    = new Position(0, 0);
 	};
 
 	/**
@@ -35,13 +55,56 @@ class Paper
 	 */
 	width = 0;
 
+	//----------------------------------------------------------------------------------------------------- calculateFps
+	/**
+	 * @param standalone boolean
+	 */
+	calculateFps(standalone = true)
+	{
+		let paper = this;
+		if (standalone !== false) {
+			setTimeout(function() { paper.calculateFps(); }, 1000);
+		}
+		this.fps    = this.frames;
+		this.frames = 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------ constructor
+	/**
+	 * @param canvas HTMLCanvasElement
+	 * @param images Image[]
+	 */
+	constructor(canvas, images)
+	{
+		this.canvas = canvas;
+		this.pen    = canvas.getContext('2d');
+		for (let image of images) {
+			this.images[image.id] = image;
+		}
+	}
+
 	//------------------------------------------------------------------------------------------------------------- draw
 	draw()
 	{
+		this.frames ++;
+		this.pen.clearRect(0, 0, this.width - 1, this.height - 1);
 		for (let thing of this.things) {
 			thing.draw(this);
 		}
-		requestAnimationFrame(() => { paper.draw(); });
+		let paper = this;
+		if (this.animation_request === undefined) {
+			this.animation_request = requestAnimationFrame(() => {
+				paper.animation_request = undefined;
+				paper.draw();
+			});
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------- displayFps
+	displayFps()
+	{
+		this.calculateFps(false);
+		console.log(this.fps, 'fps');
 	}
 
 	//------------------------------------------------------------------------------------------------------------- load
@@ -78,16 +141,22 @@ class Paper
 	 *
 	 * @param position Position
 	 * @param size     Size
-	 * @return Position
+	 * @returns Position
 	 */
 	shift(position, size)
 	{
 		let paper_top = this.position.top;
-		return new Position(
-			position.x - paper_top.x - (size.width  / 2),
-			position.y - paper_top.y - (size.height / 2),
-			position.z - paper_top.z - (size.depth  / 2)
-		);
+		return size
+			? new Position(
+				position.x - paper_top.x - (size.width  / 2),
+				position.y - paper_top.y - (size.height / 2),
+				position.z - paper_top.z - (size.depth  / 2)
+			)
+			: new Position(
+				position.x - paper_top.x,
+				position.y - paper_top.y,
+				position.z - paper_top.z
+			);
 	}
 
 	//------------------------------------------------------------------------------------------------------------- text
@@ -105,7 +174,7 @@ class Paper
 
 	//--------------------------------------------------------------------------------------------- textBaseLinePosition
 	/**
-	 * @return number
+	 * @returns number
 	 */
 	textBaseLinePosition()
 	{
@@ -114,7 +183,7 @@ class Paper
 
 	//------------------------------------------------------------------------------------------------------- textHeight
 	/**
-	 * @return number
+	 * @returns number
 	 */
 	textHeight()
 	{
@@ -124,7 +193,7 @@ class Paper
 	//-------------------------------------------------------------------------------------------------------- textWidth
 	/**
 	 * @param text string
-	 * @return number
+	 * @returns number
 	 */
 	textWidth(text)
 	{

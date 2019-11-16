@@ -20,7 +20,7 @@ class Size
 	 * @param height integer
 	 * @param depth  integer
 	 */
-	constructor(width, height, depth)
+	constructor(width, height, depth = 0)
 	{
 		this.depth  = depth;
 		this.height = height;
@@ -29,7 +29,7 @@ class Size
 
 	//--------------------------------------------------------------------------------------------------------- toString
 	/**
-	 * @return string
+	 * @returns string
 	 */
 	toString()
 	{
