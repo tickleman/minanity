@@ -1,5 +1,7 @@
 
-import Thing from '../Thing.js';
+import Activity from '../../Activity/Activity.js';
+import Nothing  from '../../Activity/Nothing.js';
+import Thing    from '../Thing.js';
 
 /**
  * Animal
@@ -7,6 +9,17 @@ import Thing from '../Thing.js';
 class Animal extends Thing
 {
 
+	//----------------------------------------------------------------------------------------------------------- decide
+	decide()
+	{
+
+	}
+
 }
+
+/**
+ * @type Activity
+ */
+Animal.prototype.doing = new Nothing;
 
 export default Animal;

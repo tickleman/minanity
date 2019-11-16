@@ -1,5 +1,6 @@
 
 import Position from '../World/Position.js';
+import Size     from '../World/Size.js';
 
 /**
  * Thing
@@ -27,14 +28,12 @@ class Thing
 	 */
 	draw(paper)
 	{
-		let pen      = paper.pen;
-		let position = this.position;
-		let world    = paper.world;
-		let x = position.x - world.x - 8;
-		let y = position.y - world.y - 8;
+		let position = paper.shift(this.position, this.size);
+		let size     = this.size;
 
+		let pen = paper.pen;
 		pen.strokeStyle = 'black';
-		pen.strokeRect(x, y, 16, 16);
+		pen.strokeRect(position.x, position.y, size.width, size.height);
 	}
 
 	//--------------------------------------------------------------------------------------------------------- toString
@@ -47,5 +46,10 @@ class Thing
 	}
 
 }
+
+/**
+ * @type Size
+ */
+Thing.prototype.size = new Size(16, 16, 16);
 
 export default Thing;

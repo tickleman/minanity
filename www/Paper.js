@@ -20,6 +20,11 @@ class Paper
 	 */
 	pen = this.canvas.getContext('2d');
 
+	position = new class {
+		center = new Position(0, 0, 0);
+		top    = new Position(0, 0, 0);
+	};
+
 	/**
 	 * @type Thing[]
 	 */
@@ -30,11 +35,6 @@ class Paper
 	 */
 	width = 0;
 
-	/**
-	 * @type Position
-	 */
-	world = new Position(0, 0, 0);
-
 	//------------------------------------------------------------------------------------------------------------- draw
 	draw()
 	{
@@ -44,12 +44,19 @@ class Paper
 		requestAnimationFrame(() => { paper.draw(); });
 	}
 
+	//------------------------------------------------------------------------------------------------------------- load
+	load()
+	{
+		let paper = this;
+		document.addEventListener('DOMContentLoaded', () => {
+			paper.resize();
+			addEventListener('resize', () => { paper.resize(); });
+		});
+	}
+
 	//----------------------------------------------------------------------------------------------------------- resize
 	resize()
 	{
-		this.world.x -= Math.round((window.innerWidth  - this.width)  / 2);
-		this.world.y -= Math.round((window.innerHeight - this.height) / 2);
-
 		this.height = window.innerHeight;
 		this.width  = window.innerWidth;
 		this.bottom = this.height - 1;
@@ -59,12 +66,33 @@ class Paper
 		this.canvas.style  = 'height: ' + this.height + 'px; width: ' + this.width + 'px;';
 		this.canvas.width  = this.width;
 
+		this.position.top.x = (Math.round(this.position.center.x - this.width)  / 2);
+		this.position.top.y = (Math.round(this.position.center.y - this.height) / 2);
+
 		this.draw();
+	}
+
+	//------------------------------------------------------------------------------------------------------------ shift
+	/**
+	 * Calculate the position of the top-left corner of anything that has a position and size on the paper
+	 *
+	 * @param position Position
+	 * @param size     Size
+	 * @return Position
+	 */
+	shift(position, size)
+	{
+		let paper_top = this.position.top;
+		return new Position(
+			position.x - paper_top.x - (size.width  / 2),
+			position.y - paper_top.y - (size.height / 2),
+			position.z - paper_top.z - (size.depth  / 2)
+		);
 	}
 
 	//------------------------------------------------------------------------------------------------------------- text
 	/**
-	 * this is the same than pen.text, but y is the position of the top-left corner of the text
+	 * This is the same than pen.text, but y is the position of the top-left corner of the text
 	 *
 	 * @param text string
 	 * @param x    number
@@ -105,11 +133,4 @@ class Paper
 
 }
 
-//---------------------------------------------------------------------------------------------------------------- init
-let paper = new Paper();
-document.addEventListener('DOMContentLoaded', () => {
-	paper.resize();
-	addEventListener('resize', () => { paper.resize(); });
-});
-
-export default paper;
+export default Paper;
