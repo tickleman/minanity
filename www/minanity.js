@@ -20,13 +20,13 @@ let paper = new Paper(
 );
 
 paper.load();
+paper.things.push(new Mushrooms(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.things.push(new Food(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-paper.things.push(new Giant_Mushroom(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-for (let n = 0; n < 100; n ++) {
+paper.things.push(new Rock(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+for (let n = 0; n < 40; n ++) {
 	paper.things.push(new Minan(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 }
-paper.things.push(new Mushrooms(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-paper.things.push(new Rock(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+paper.things.push(new Giant_Mushroom(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.things.push(new Tree(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.calculateFps();
 
