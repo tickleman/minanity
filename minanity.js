@@ -1,14 +1,42 @@
-"use strict";
+import Paper    from './Front/Paper.js';
+import Position from './World/Position.js';
 
-/**
- * Launch it with :
- * node --use_strict minanity
- */
+import Activity from './Activity/Activity.js';
+import Nothing  from './Activity/Nothing.js';
 
-let Position = require('./World/Position');
-let Minan = require('./Thing/Creature/Minan');
+import Creature from './Thing/Creature/Creature.js';
 
-let test = new Minan(new Position(0, 0, 0));
-console.log(test.toString());
+import Minan    from './Thing/Creature/Minan.js';
 
-console.log('Hello, world !');
+import Food     from './Thing/Plant/Food.js';
+import Rock     from './Thing/Plant/Rock.js';
+import Tree     from './Thing/Plant/Tree.js';
+import Giant_Mushroom from "./Thing/Plant/Giant_Mushroom.js";
+import Mushrooms from "./Thing/Plant/Mushrooms.js";
+
+let paper = new Paper(
+	document.getElementsByTagName('canvas')[0],
+	document.getElementsByTagName('img')
+);
+
+paper.load();
+paper.things.push(new Mushrooms(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+paper.things.push(new Food(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+paper.things.push(new Rock(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+for (let n = 0; n < 40; n ++) {
+	paper.things.push(new Minan(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+}
+paper.things.push(new Giant_Mushroom(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+paper.things.push(new Tree(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+paper.calculateFps();
+
+setInterval(() => {
+	for (let creature of paper.things) if (creature instanceof Creature) {
+		creature.decide();
+	}
+}, 1000);
+
+window.paper = paper;
+window.Activity = Activity;
+window.Creature = Creature;
+window.Nothing  = Nothing;
