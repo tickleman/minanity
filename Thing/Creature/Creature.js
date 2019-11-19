@@ -3,6 +3,7 @@ import Nothing  from '../../Activity/Nothing.js';
 import Thing    from '../Thing.js';
 import Position from '../../World/Position.js';
 import Walk     from '../../Activity/Walk.js';
+import World    from '../../World/World.js';
 
 /**
  * Creature
@@ -28,6 +29,7 @@ class Creature extends Thing
 	{
 		super(position);
 		this.do(new Nothing(this));
+		World.moving[this.id] = this;
 	}
 
 	//----------------------------------------------------------------------------------------------------------- decide
@@ -36,7 +38,12 @@ class Creature extends Thing
 		if (this.boredom < 51) {
 			return;
 		}
-		this.do(new Walk(this, new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)));
+		let position = new Position(0, 0);
+		do {
+			position.x = Math.random() * 1000 - 500;
+			position.y = Math.random() * 800 - 400;
+		} while (World.somethingAt(position.x, position.y, this.size.width, this.size.height, this.id));
+		this.do(new Walk(this, position));
 	}
 
 	//--------------------------------------------------------------------------------------------------------------- do

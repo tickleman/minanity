@@ -1,8 +1,15 @@
 
 import Activity from './Activity.js';
+import World    from '../World/World.js';
 
 class Walk extends Activity
 {
+
+	//----------------------------------------------------------------------------------------------------------- bypass
+	/**
+	 * @type array [dx, dy, min_distance]
+	 */
+	bypass;
 
 	//--------------------------------------------------------------------------------------------------------- creature
 	/**
@@ -26,6 +33,17 @@ class Walk extends Activity
 	 */
 	to;
 
+	//-------------------------------------------------------------------------------------------------------- calculate
+	calculate()
+	{
+		let position = this.creature.position;
+		let width  = (this.to.x - position.x);
+		let height = (this.to.y - position.y);
+		let angle  = Math.atan(Math.abs(height / width));
+		this.dx    = Math.sign(width)  * (Walk.DISTANCE * Math.cos(angle));
+		this.dy    = Math.sign(height) * (Walk.DISTANCE * Math.sin(angle));
+	}
+
 	//------------------------------------------------------------------------------------------------------ constructor
 	/**
 	 * @param creature Creature
@@ -39,12 +57,7 @@ class Walk extends Activity
 
 		creature.boredom -= 10;
 
-		let position = creature.position;
-		let width  = (to.x - position.x);
-		let height = (to.y - position.y);
-		let angle  = Math.atan(Math.abs(height / width));
-		this.dx    = Math.sign(width)  * (Walk.DISTANCE * Math.cos(angle));
-		this.dy    = Math.sign(height) * (Walk.DISTANCE * Math.sin(angle));
+		this.calculate();
 
 		walks[creature.id] = this;
 		if (!interval) {
@@ -81,9 +94,11 @@ let interval = undefined;
 //-------------------------------------------------------------------------------------------------------------- doWalk
 function doWalk()
 {
+	let next_x, next_y, position, size, to;
 	for (let walk of Object.values(walks)) {
-		let position = walk.creature.position;
-		let to       = walk.to;
+		position = walk.creature.position;
+		size     = walk.creature.size;
+		to       = walk.to;
 
 		if (
 			(Math.abs(to.x - position.x) < Walk.DISTANCE)
@@ -95,8 +110,47 @@ function doWalk()
 			continue;
 		}
 
-		position.x += walk.dx;
-		position.y += walk.dy;
+		// bypass move
+		if (walk.bypass) {
+			next_x = position.x + walk.bypass[0];
+			next_y = position.y + walk.bypass[1];
+			walk.bypass[2] -= Walk.DISTANCE;
+			if (walk.bypass[2] < 0) {
+				walk.bypass = undefined;
+				walk.calculate();
+			}
+		}
+		// straight forward move
+		else {
+			next_x = position.x + walk.dx;
+			next_y = position.y + walk.dy;
+		}
+		// look forward
+		if (World.somethingAt(next_x, next_y, size.width, size.height, walk.creature.id)) {
+			// there is something : will choose another way but will not move at this turn
+			if (!walk.bypass) {
+				// look left
+				next_x = position.x + walk.dy;
+				next_y = position.y - walk.dx;
+				if (World.somethingAt(next_x, next_y, size.width, size.height, walk.creature.id)) {
+					// look right
+					next_x = position.x - walk.dy;
+					next_y = position.y + walk.dx;
+					if (World.somethingAt(next_x, next_y, size.width, size.height, walk.creature.id)) {
+						continue;
+					}
+					walk.bypass = [-walk.dy, walk.dx];
+				}
+				else {
+					walk.bypass = [walk.dy, -walk.dx];
+				}
+				walk.bypass[2] = Math.sqrt(size.width * size.width + size.height * size.height);
+			}
+			continue;
+		}
+		// walk
+		position.x = next_x;
+		position.y = next_y;
 	}
 }
 

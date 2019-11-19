@@ -11,8 +11,10 @@ import Minan    from './Thing/Creature/Minan.js';
 import Food     from './Thing/Plant/Food.js';
 import Rock     from './Thing/Plant/Rock.js';
 import Tree     from './Thing/Plant/Tree.js';
-import Giant_Mushroom from "./Thing/Plant/Giant_Mushroom.js";
-import Mushrooms from "./Thing/Plant/Mushrooms.js";
+import Giant_Mushroom from './Thing/Plant/Giant_Mushroom.js';
+import Mushrooms from './Thing/Plant/Mushrooms.js';
+
+import World from './World/World.js';
 
 let paper = new Paper(
 	document.getElementsByTagName('canvas')[0],
@@ -24,7 +26,14 @@ paper.things.push(new Mushrooms(new Position(Math.random() * 1000 - 500, Math.ra
 paper.things.push(new Food(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.things.push(new Rock(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 for (let n = 0; n < 100; n ++) {
-	paper.things.push(new Minan(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
+	let minan = new Minan(new Position(0, 0));
+	do {
+		minan.position.x = Math.random() * 1000 - 500;
+		minan.position.y = Math.random() * 800 - 400;
+	} while (
+		World.somethingAt(minan.position.x, minan.position.y, minan.size.width, minan.size.height, minan.id)
+	);
+	paper.things.push(minan.start());
 }
 paper.things.push(new Giant_Mushroom(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.things.push(new Tree(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
@@ -36,7 +45,7 @@ setInterval(() => {
 	}
 }, 1000);
 
-window.paper = paper;
+window.paper    = paper;
 window.Activity = Activity;
 window.Creature = Creature;
 window.Nothing  = Nothing;
