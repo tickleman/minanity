@@ -15,6 +15,8 @@ class Paper
 	 */
 	canvas;
 
+	debug = false;
+
 	/**
 	 * @type Image[]|object
 	 */

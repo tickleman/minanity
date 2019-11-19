@@ -7,6 +7,14 @@ leaders and take the power of they world.
 This game is made to be played into a unique server system, but if you want to play with it, learn
 how it's done, help me, it's free, MIT-Licensed, do whatever you want, and have fun.
 
+# Play with it
+
+- Open index.html into your Firefox or Chrome browser (does not work with IE/Edge yet)
+- Open the browser's console
+- `paper` : Observe the data structure
+- `paper.fps` : Display current fps 
+- `paper.debug = true` : Show graphical debug information
+
 # MIT License
 
 This program and its documentation are released into MIT License :

@@ -59,7 +59,7 @@ class Creature extends Thing
 		super.draw(paper);
 
 		// draw destination and path for debugging purpose
-		if (this.activity instanceof Walk) {
+		if (paper.debug && (this.activity instanceof Walk)) {
 			let pen  = paper.pen;
 			let from = paper.shift(this.position);
 			let to   = paper.shift(this.activity.to);
