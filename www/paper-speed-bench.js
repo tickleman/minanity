@@ -147,6 +147,43 @@ class Paper
 		this.canvas3.getContext('2d').drawImage(this.images[1], 0, 0);
 		this.resize();
 
+		let img   = this.pen.createImageData(1000, 1000);
+		let data  = new Uint32Array(new ArrayBuffer(img.data.length));
+		let count = 100000000;
+
+		let time = (new Date).getTime();
+		for (let i = 0; i < count; i ++) {
+			let x = Math.round(Math.random() * 1000);
+			let y = Math.round(Math.random() * 1000);
+			let p = (y * 1000 + x) * 4;
+			data[p]     = 255; // alpha
+			data[p + 1] = 0;   // blue
+			data[p + 2] = 0;   // green
+			data[p + 3] = 255; // red
+		}
+		time = (new Date).getTime() - time;
+		console.log('8 bits imageData = ', Math.round(1000 * count / time), '/ sec');
+
+		time = (new Date).getTime();
+		for (let i = 0; i < count; i ++) {
+			let x = Math.round(Math.random() * 1000);
+			let y = Math.round(Math.random() * 1000);
+			// alpha blue green red
+			data[y * 1000 + x] = (255 << 24) | (0 << 16) | (0 << 8) | 255;
+		}
+		time = (new Date).getTime() - time;
+		console.log('32 bits imageData = ', Math.round(1000 * count / time), '/ sec');
+
+		time = (new Date).getTime();
+		count = 1000000;
+		for (let i = 0; i < count; i ++) {
+			let x = Math.round(Math.random() * 1000);
+			let y = Math.round(Math.random() * 1000);
+			this.pen.fillRect(x, y, 1, 1);
+		}
+		time = (new Date).getTime() - time;
+		console.log('draw on canvas = ', Math.round(1000 * count / time), '/ sec');
+
 		let paper = this;
 		setTimeout(() => {
 			// image 0 : from full image to canvas
