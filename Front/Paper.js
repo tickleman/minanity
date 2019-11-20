@@ -15,6 +15,9 @@ class Paper
 	 */
 	canvas;
 
+	/**
+	 * @type boolean
+	 */
 	debug = false;
 
 	/**
@@ -150,14 +153,14 @@ class Paper
 		let paper_top = this.position.top;
 		return size
 			? new Position(
-				position.x - paper_top.x - (size.width  / 2),
-				position.y - paper_top.y - (size.height / 2),
-				position.z - paper_top.z - (size.depth  / 2)
+				Math.round(position.x - paper_top.x - (size.width  / 2)) + .5,
+				Math.round(position.y - paper_top.y - (size.height / 2)) + .5,
+				Math.round(position.z - paper_top.z - (size.depth  / 2)) + .5
 			)
 			: new Position(
-				position.x - paper_top.x,
-				position.y - paper_top.y,
-				position.z - paper_top.z
+				Math.round(position.x - paper_top.x) + .5,
+				Math.round(position.y - paper_top.y) + .5,
+				Math.round(position.z - paper_top.z) + .5
 			);
 	}
 
