@@ -34,14 +34,14 @@ class Walk extends Activity
 	to;
 
 	//-------------------------------------------------------------------------------------------------------- calculate
-	calculate()
+	calculate(distance = Walk.DISTANCE)
 	{
 		let position = this.creature.position;
 		let width  = (this.to.x - position.x);
 		let height = (this.to.y - position.y);
 		let angle  = Math.atan(Math.abs(height / width));
-		this.dx    = Math.sign(width)  * (Walk.DISTANCE * Math.cos(angle));
-		this.dy    = Math.sign(height) * (Walk.DISTANCE * Math.sin(angle));
+		this.dx    = Math.sign(width)  * (distance * Math.cos(angle));
+		this.dy    = Math.sign(height) * (distance * Math.sin(angle));
 	}
 
 	//------------------------------------------------------------------------------------------------------ constructor
@@ -100,6 +100,7 @@ function doWalk()
 		size     = walk.creature.size;
 		to       = walk.to;
 
+		// arrival
 		if (
 			(Math.abs(to.x - position.x) < Walk.DISTANCE)
 			&& (Math.abs(to.y - position.y) < Walk.DISTANCE)
@@ -109,7 +110,14 @@ function doWalk()
 			walk.creature.do(new Nothing(walk.creature));
 			continue;
 		}
-
+		// final approach
+		else if (
+			(Math.abs(to.x - position.x) < (Walk.DISTANCE * 2))
+			&& (Math.abs(to.y - position.y) < (Walk.DISTANCE * 2))
+			&& (Math.abs(walk.dx) + Math.abs(walk.dy)) > Walk.DISTANCE
+		) {
+			walk.calculate(Walk.DISTANCE / 2);
+		}
 		// bypass move
 		if (walk.bypass) {
 			next_x = position.x + walk.bypass[0];

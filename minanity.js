@@ -22,21 +22,21 @@ let paper = new Paper(
 );
 
 paper.load();
-paper.things.push(new Mushrooms(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-paper.things.push(new Food(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-paper.things.push(new Rock(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-for (let n = 0; n < 100; n ++) {
+paper.things.push(new Mushrooms(new Position(Math.random() * 2000 - 1000, Math.random() * 1000 - 500)).start());
+paper.things.push(new Food(new Position(Math.random() * 2000 - 1000, Math.random() * 1000 - 500)).start());
+paper.things.push(new Rock(new Position(Math.random() * 2000 - 1000, Math.random() * 1000 - 500)).start());
+paper.things.push(new Giant_Mushroom(new Position(Math.random() * 2000 - 1000, Math.random() * 1000 - 500)).start());
+paper.things.push(new Tree(new Position(Math.random() * 2000 - 1000, Math.random() * 1000 - 500)).start());
+for (let n = 0; n < 200; n ++) {
 	let minan = new Minan(new Position(0, 0));
 	do {
-		minan.position.x = Math.random() * 1000 - 500;
-		minan.position.y = Math.random() * 800 - 400;
+		minan.position.x = Math.random() * 2000 - 1000;
+		minan.position.y = Math.random() * 1000 - 500;
 	} while (
 		World.somethingAt(minan.position.x, minan.position.y, minan.size.width, minan.size.height, minan.id)
 	);
 	paper.things.push(minan.start());
 }
-paper.things.push(new Giant_Mushroom(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
-paper.things.push(new Tree(new Position(Math.random() * 1000 - 500, Math.random() * 800 - 400)).start());
 paper.calculateFps();
 
 setInterval(() => {

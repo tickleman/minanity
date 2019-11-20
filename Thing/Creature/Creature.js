@@ -40,8 +40,8 @@ class Creature extends Thing
 		}
 		let position = new Position(0, 0);
 		do {
-			position.x = Math.random() * 1000 - 500;
-			position.y = Math.random() * 800 - 400;
+			position.x = Math.random() * 2000 - 1000;
+			position.y = Math.random() * 1000 - 500;
 		} while (World.somethingAt(position.x, position.y, this.size.width, this.size.height, this.id));
 		this.do(new Walk(this, position));
 	}
