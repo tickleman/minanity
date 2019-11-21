@@ -2,7 +2,7 @@
 import Creature from './Creature.js';
 
 /**
- * Human
+ * Minan
  */
 class Minan extends Creature
 {

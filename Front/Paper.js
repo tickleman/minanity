@@ -1,6 +1,8 @@
 
 import Position from '../World/Position.js';
 import Thing    from '../Thing/Thing.js';
+import Walk     from '../Activity/Walk.js';
+import World    from '../World/World.js';
 
 class Paper
 {
@@ -34,6 +36,11 @@ class Paper
 	 * @type number
 	 */
 	frames = 0;
+
+	/**
+	 * @type object|array
+	 */
+	keys = {};
 
 	/**
 	 * @type number
@@ -103,6 +110,57 @@ class Paper
 				paper.draw();
 			});
 		}
+	}
+
+	//--------------------------------------------------------------------------------------------------------- interact
+	/**
+	 * @param player Player
+	 */
+	interact(player)
+	{
+		let paper = this;
+		document.addEventListener('keydown', (event) => { paper.keys[event.key] = true; });
+		document.addEventListener('keyup',   (event) => { delete paper.keys[event.key]; });
+		setInterval(function() {
+			let dx = 0;
+			let dy = 0;
+			if (paper.keys.hasOwnProperty('ArrowDown'))  dy = +Walk.DISTANCE;
+			if (paper.keys.hasOwnProperty('ArrowLeft'))  dx = -Walk.DISTANCE;
+			if (paper.keys.hasOwnProperty('ArrowRight')) dx = +Walk.DISTANCE;
+			if (paper.keys.hasOwnProperty('ArrowUp'))    dy = -Walk.DISTANCE;
+			if (dx && World.somethingAt(
+				player.position.x + dx, player.position.y,
+				player.size.width, player.size.height,
+				player.id
+			)) {
+				dx = 0;
+			}
+			if (dy && World.somethingAt(
+				player.position.x, player.position.y + dy,
+				player.size.width, player.size.height,
+				player.id
+			)) {
+				dy = 0;
+			}
+			if (!dx && !dy) {
+				return;
+			}
+			if (dx && dy) {
+				let distance = (Walk.DISTANCE / Math.sqrt(2));
+				dx = Math.sign(dx) * distance;
+				dy = Math.sign(dy) * distance;
+			}
+			if (dx) {
+				paper.position.center.x += dx;
+				paper.position.top.x += dx;
+				player.position.x += dx;
+			}
+			if (dy) {
+				paper.position.center.y += dy;
+				paper.position.top.y += dy;
+				player.position.y += dy;
+			}
+		}, 1000 / 48);
 	}
 
 	//------------------------------------------------------------------------------------------------------- displayFps
