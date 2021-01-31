@@ -21,7 +21,7 @@ class Thing
 	position;
 
 	/**
-	 * type Size
+	 * @type Size
 	 */
 	size;
 
