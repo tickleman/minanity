@@ -1,5 +1,5 @@
 
-import Plant from './Plant.js';
+import Plant from './Plant.js'
 
 /**
  * Food
@@ -9,4 +9,4 @@ class Food extends Plant
 
 }
 
-export default Food;
+export default Food

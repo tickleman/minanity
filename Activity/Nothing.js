@@ -1,29 +1,29 @@
 
-import Activity  from './Activity.js';
+import Activity  from './Activity.js'
 
 class Nothing extends Activity
 {
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param creature Creature
 	 */
 	constructor(creature)
 	{
-		super(creature);
-		creatures[creature.id] = creature;
+		super(creature)
+		creatures[creature.id] = creature
 		if (!interval) {
-			interval = setInterval(doNothing, 1000);
+			interval = setInterval(doNothing, 1000)
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------- destroy
+	//----------------------------------------------------------------------------------------------------------- destroy
 	destroy(creature)
 	{
-		delete creatures[creature.id];
+		delete creatures[creature.id]
 		if (interval && !Object.keys(creature).length) {
-			clearInterval(interval);
-			interval = undefined;
+			clearInterval(interval)
+			interval = undefined
 		}
 	}
 
@@ -33,18 +33,18 @@ class Nothing extends Activity
 /**
  * @type Creature[]|object
  */
-let creatures = {};
+let creatures = {}
 
 //------------------------------------------------------------------------------------------------------------ interval
 /**
  * @type number
  */
-let interval = undefined;
+let interval = undefined
 
 //----------------------------------------------------------------------------------------------------------- doNothing
 function doNothing()
 {
-	for (let creature of Object.values(creatures)) if (creature.boredom < 100) creature.boredom ++;
+	for (let creature of Object.values(creatures)) if (creature.boredom < 100) creature.boredom ++
 }
 
-export default Nothing;
+export default Nothing

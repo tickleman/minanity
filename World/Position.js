@@ -14,7 +14,7 @@
 class Position
 {
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param x integer
 	 * @param y integer
@@ -22,20 +22,20 @@ class Position
 	 */
 	constructor(x, y, z = 0)
 	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.x = x
+		this.y = y
+		this.z = z
 	}
 
-	//--------------------------------------------------------------------------------------------------------- toString
+	//---------------------------------------------------------------------------------------------------------- toString
 	/**
 	 * @returns string
 	 */
 	toString()
 	{
-		return `(${this.x}, ${this.y}, ${this.z})`;
+		return `(${this.x}, ${this.y}, ${this.z})`
 	}
 
 }
 
-export default Position;
+export default Position

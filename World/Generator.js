@@ -4,4 +4,4 @@ class Generator
 
 }
 
-export default Generator;
+export default Generator

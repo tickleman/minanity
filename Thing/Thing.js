@@ -1,8 +1,8 @@
 
-import Position from '../World/Position.js';
-import Size     from '../World/Size.js';
+import Position from '../World/Position.js'
+import Size     from '../World/Size.js'
 
-let next_id = 0;
+let next_id = 0
 
 /**
  * Thing
@@ -10,67 +10,70 @@ let next_id = 0;
 class Thing
 {
 
+	//---------------------------------------------------------------------------------------------------------------- id
 	/**
 	 * @type number
 	 */
-	id;
+	id
 
+	//---------------------------------------------------------------------------------------------------------- position
 	/**
 	 * @type Position
 	 */
-	position;
+	position
 
+	//-------------------------------------------------------------------------------------------------------------- size
 	/**
 	 * @type Size
 	 */
-	size;
+	size
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param position Position
 	 */
 	constructor(position)
 	{
-		this.id       = next_id++;
-		this.position = position;
-		this.size     = Thing.prototype.size;
+		this.id       = next_id ++
+		this.position = position
+		this.size     = Thing.prototype.size
 	}
 
-	//------------------------------------------------------------------------------------------------------------- draw
+	//-------------------------------------------------------------------------------------------------------------- draw
 	/**
 	 * @param paper Paper
 	 */
 	draw(paper)
 	{
-		let position = paper.shift(this.position, this.size);
-		let size     = this.size;
+		let position = paper.shift(this.position, this.size)
+		let size     = this.size
 
 		if (paper.images.hasOwnProperty(this.constructor.name)) {
-			paper.pen.drawImage(paper.images[this.constructor.name], position.x, position.y);
+			paper.pen.drawImage(paper.images[this.constructor.name], position.x, position.y)
 		}
 		else {
-			let pen = paper.pen;
-			pen.strokeStyle = 'black';
-			pen.strokeRect(position.x, position.y, size.width, size.height);
+			let pen = paper.pen
+			pen.strokeStyle = 'black'
+			pen.strokeRect(position.x, position.y, size.width, size.height)
 		}
 	}
 
-	//------------------------------------------------------------------------------------------------------------ start
+	//------------------------------------------------------------------------------------------------------------- start
 	/**
 	 * @returns Thing
 	 */
 	start()
 	{
-		return this;
+		return this
 	}
 
-	//--------------------------------------------------------------------------------------------------------- toString
+	//---------------------------------------------------------------------------------------------------------- toString
 	/**
 	 * @returns string
 	 */
 	toString()
 	{
-		return `${this.constructor.name} ${this.id}`;
+		return `${this.constructor.name} ${this.id}`
 	}
 
 }
@@ -78,6 +81,6 @@ class Thing
 /**
  * @type Size
  */
-Thing.prototype.size = new Size(16, 16, 16);
+Thing.prototype.size = new Size(16, 16, 16)
 
-export default Thing;
+export default Thing

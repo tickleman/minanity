@@ -1,5 +1,5 @@
 
-import Creature from './Creature.js';
+import Creature from './Creature.js'
 
 /**
  * Minan
@@ -9,4 +9,4 @@ class Minan extends Creature
 
 }
 
-export default Minan;
+export default Minan

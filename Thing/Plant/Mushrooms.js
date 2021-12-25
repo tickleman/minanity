@@ -1,5 +1,5 @@
 
-import Plant from './Plant.js';
+import Plant from './Plant.js'
 
 /**
  * Mushroom
@@ -9,4 +9,4 @@ class Mushrooms extends Plant
 
 }
 
-export default Mushrooms;
+export default Mushrooms

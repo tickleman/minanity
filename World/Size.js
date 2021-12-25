@@ -14,7 +14,7 @@
 class Size
 {
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param width  integer
 	 * @param height integer
@@ -22,20 +22,20 @@ class Size
 	 */
 	constructor(width, height, depth = 0)
 	{
-		this.depth  = depth;
-		this.height = height;
-		this.width  = width;
+		this.depth  = depth
+		this.height = height
+		this.width  = width
 	}
 
-	//--------------------------------------------------------------------------------------------------------- toString
+	//---------------------------------------------------------------------------------------------------------- toString
 	/**
 	 * @returns string
 	 */
 	toString()
 	{
-		return `(${this.width}, ${this.height}, ${this.depth})`;
+		return `(${this.width}, ${this.height}, ${this.depth})`
 	}
 
 }
 
-export default Size;
+export default Size

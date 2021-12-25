@@ -2,27 +2,31 @@
 class Generator
 {
 
+	//--------------------------------------------------------------------------------------------------------- attribute
 	/**
 	 * @type string
 	 */
-	attribute;
+	attribute
 
+	//------------------------------------------------------------------------------------------------------------- count
 	/**
 	 * @type number
 	 */
-	count;
+	count
 
+	//------------------------------------------------------------------------------------------------------------- delay
 	/**
 	 * @type number milliseconds
 	 */
-	delay;
+	delay
 
+	//------------------------------------------------------------------------------------------------------------ repeat
 	/**
 	 * @type number Generator.INFINITE for infinite
 	 */
-	repeat;
+	repeat
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param attribute string
 	 * @param count     number
@@ -31,14 +35,15 @@ class Generator
 	 */
 	constructor(attribute, count = 1, repeat = 1, delay = 1000)
 	{
-		this.attribute = attribute;
-		this.count     = count;
-		this.delay     = delay;
-		this.repeat    = repeat;
+		this.attribute = attribute
+		this.count     = count
+		this.delay     = delay
+		this.repeat    = repeat
 	}
 
 }
 
-Generator.INFINITE = -1;
+//------------------------------------------------------------------------------------------------------------ INFINITE
+Generator.INFINITE = -1
 
-export default Generator;
+export default Generator

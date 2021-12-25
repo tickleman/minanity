@@ -4,15 +4,17 @@ class World
 
 }
 
+//-------------------------------------------------------------------------------------------------------------- moving
 /**
  * @type Creature[]|object
  */
-World.moving = {};
+World.moving = {}
 
+//----------------------------------------------------------------------------------------------------------- obstacles
 /**
  * @type Plant[]|object
  */
-World.obstacles = {};
+World.obstacles = {}
 
 //--------------------------------------------------------------------------------------------------------- somethingAt
 /**
@@ -28,25 +30,25 @@ World.obstacles = {};
  */
 World.somethingAt = function(x, y, width = 1, height = 1, exclude = -1)
 {
-	let position;
-	let size;
-	let thing;
-	let things = Object.values(World.moving);
+	let position
+	let size
+	let thing
+	let things = Object.values(World.moving)
 	for (let i = 0; i < 2; i ++) {
 		for (thing of things) {
-			if (thing.id === exclude) continue;
-			position = thing.position;
-			size     = thing.size;
+			if (thing.id === exclude) continue
+			position = thing.position
+			size     = thing.size
 			if (
 				(position.x < (x + width)) && (x < (position.x + size.width))
 				&& (position.y < (y + height)) && (y < (position.y + size.height))
 			) {
-				return thing;
+				return thing
 			}
 		}
-		things = Object.values(World.obstacles);
+		things = Object.values(World.obstacles)
 	}
-	return null;
-};
+	return null
+}
 
-export default World;
+export default World

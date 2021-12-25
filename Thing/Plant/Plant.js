@@ -1,6 +1,6 @@
 
-import Thing from '../Thing.js';
-import World from '../../World/World.js';
+import Thing from '../Thing.js'
+import World from '../../World/World.js'
 
 /**
  * Plant
@@ -8,16 +8,16 @@ import World from '../../World/World.js';
 class Plant extends Thing
 {
 
-	//------------------------------------------------------------------------------------------------------ constructor
+	//------------------------------------------------------------------------------------------------------- constructor
 	/**
 	 * @param position Position
 	 */
 	constructor(position)
 	{
-		super(position);
-		World.obstacles[this.id] = this;
+		super(position)
+		World.obstacles[this.id] = this
 	}
 
 }
 
-export default Plant;
+export default Plant
