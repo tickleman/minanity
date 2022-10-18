@@ -1,0 +1,2 @@
+- vue 3d isométrique
+- monde post-apocalyptique sous-terrain : on se fait réveiller dans une base sous-terraine très profonde, sans accès à l'extérieur, avec juste le minimum pour survivre. ensuite on creuse, on cherce d'autres bases, on utilise une imprimante 3D pour créer des objets, des outils, des structures pour continuer à agrandir notre monde souterrain

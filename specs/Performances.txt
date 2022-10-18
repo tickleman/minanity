@@ -1,0 +1,12 @@
+
+Animation + Pathfinding :
+
+1000 carrés dessinés 16x16 :
+- Chrome  = 60fps
+- Firefox = 11fps
+
+1000 personnages png tracés 16x16 :
+- Chrome = 50fps
+- Firefox = 11fps
+
+Moralité : ça va plus vite de faire un dessin simple que coller un png

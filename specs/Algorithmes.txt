@@ -1,0 +1,15 @@
+COLLISIONS
+
+X Rectangles droits
+
+- Ensembles de segments
+https://fr.wikipedia.org/wiki/Algorithme_de_Bentley-Ottmann#cite_note-2 contient un paquet de références vers des algorithmes
+
+  ? Bentley-Ottmann "Algorithms for reporting and counting geometric intersections" (1979) :
+    simple mais pas optimal
+  ? Balaban "An optimal algorithm for finding segments intersections" (1995) :
+    
+  ? Bartuschka Mehlhorn Näher "A robust and efficient implementation of a sweep line algorithm for the straight line segment intersection problem" (1997) :
+    
+  ? Mark de Berg, Marc van Kreveld, Mark Overmars et Otfried Schwarzkopf "Line segment intersection" @ "Computational Geometry" (2000) :
+    
